@@ -50,7 +50,10 @@
 
             <v-spacer></v-spacer>
             <v-col cols="6">
-              <v-text-field label="Warning qty" v-model="card.warningQty"></v-text-field>
+              <v-text-field
+                label="Warning qty"
+                v-model="card.warningQty"
+              ></v-text-field>
             </v-col>
 
             <v-spacer></v-spacer>
@@ -81,12 +84,21 @@
                 <v-chip
                   ref
                   v-bind="data.attrs"
-                  :color="categoryTags.includes(data.item.name)? 'primary':'secondary'"
-                  :class="categoryTags.includes(data.item.name)? 'white--text':'black--text'"
+                  :color="
+                    categoryTags.includes(data.item.name)
+                      ? 'primary'
+                      : 'secondary'
+                  "
+                  :class="
+                    categoryTags.includes(data.item.name)
+                      ? 'white--text'
+                      : 'black--text'
+                  "
                   close
                   @click="data.select"
                   @click:close="deleteTag(data.item.name)"
-                >{{ data.item.name }}</v-chip>
+                  >{{ data.item.name }}</v-chip
+                >
               </template>
             </v-autocomplete>
           </v-row>
@@ -97,7 +109,7 @@
             <h2>Resources</h2>
             <v-spacer></v-spacer>
             <v-dialog persistent v-model="resourceForm" max-width="500px">
-              <template v-slot:activator="{on}">
+              <template v-slot:activator="{ on }">
                 <!-- Button to add resources -->
                 <v-btn x-small outlined color="primary" icon v-on="on">
                   <v-icon>mdi-plus</v-icon>
@@ -130,7 +142,8 @@
                     outlined
                     v-if="duplicateResource"
                     type="error"
-                  >Name must be unique</v-alert>
+                    >Name must be unique</v-alert
+                  >
                 </v-card-text>
                 <v-card-actions>
                   <v-container>
@@ -141,8 +154,11 @@
                           color="success"
                           class="mr-5"
                           @click="addResource"
-                        >Save</v-btn>
-                        <v-btn outlined color="error" @click="cancelAddResource">Cancel</v-btn>
+                          >Save</v-btn
+                        >
+                        <v-btn outlined color="error" @click="cancelAddResource"
+                          >Cancel</v-btn
+                        >
                       </v-col>
                     </v-row>
                   </v-container>
@@ -170,15 +186,16 @@
             </v-col>
             <v-col>
               <strong>
-                <p class="black--text d-inline">{{resource.name + ': '}}</p>
+                <p class="black--text d-inline">{{ resource.name + ": " }}</p>
               </strong>
               <a
                 class="d-inline"
                 v-if="getResourceType(resource.detail) === 'link'"
                 :href="resource.detail"
                 target="_blank"
-              >{{resource.detail}}</a>
-              <p class="d-inline black--text" v-else>{{resource.detail}}</p>
+                >{{ resource.detail }}</a
+              >
+              <p class="d-inline black--text" v-else>{{ resource.detail }}</p>
             </v-col>
           </v-row>
         </v-container>
@@ -192,16 +209,27 @@
                   color="success"
                   class="mr-5"
                   @click="submitItem"
-                >Save</v-btn>
-                <v-btn outlined color="error" @click="cancelSubmit">Cancel</v-btn>
+                  >Save</v-btn
+                >
+                <v-btn outlined color="error" @click="cancelSubmit"
+                  >Cancel</v-btn
+                >
               </v-col>
             </v-row>
           </v-container>
         </v-row>
       </v-form>
-      <v-alert dense outlined v-if="duplicateCard" type="error">Name must be unique</v-alert>
+      <v-alert dense outlined v-if="duplicateCard" type="error"
+        >Name must be unique</v-alert
+      >
     </v-card-text>
-    <v-snackbar :color="alert.color" app v-model="showAlert" timeout="1500" bottom>
+    <v-snackbar
+      :color="alert.color"
+      app
+      v-model="showAlert"
+      timeout="1500"
+      bottom
+    >
       {{ alert.message }}
       <template v-slot:action="{ attrs }">
         <v-btn text v-bind="attrs" @click="showAlert = false">Close</v-btn>
@@ -308,13 +336,13 @@ export default {
   },
   methods: {
     incrementQty(val) {
-      this.card.qty += val;
+      this.card.qty = parseInt(this.card.qty) + parseInt(val);
       if (this.card.qty < 0) {
         this.card.qty = 0;
       }
     },
     incrementWQty(val) {
-      this.card.warningQty += val;
+      this.card.warningQty = parseInt(this.card.warningQty) + parseInt(val);
       if (this.card.warningQty < 0) {
         this.card.warningQty = 0;
       }

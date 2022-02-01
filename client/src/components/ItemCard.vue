@@ -431,14 +431,14 @@ export default {
       }
     },
     incrementQty(val) {
-      this.cardData.qty += val;
+      this.cardData.qty = parseInt(this.cardData.qty) + parseInt(val);
       if (this.cardData.qty <= 0) {
         this.cardData.qty = 0;
       }
       this.updateCard();
     },
     incrementWQty(val) {
-      this.cardData.warningQty += val;
+      this.cardData.warningQty = parseInt(this.cardData.warningQty) + parseInt(val);
       if (this.cardData.warningQty <= 0) {
         this.cardData.warningQty = 0;
       }
